@@ -3,9 +3,8 @@ var input = process.argv;
 var command = input[2];
 var keys = require('./keys.js');
 var request = require('request');
-var Spotify = require('node-spotify-api');
-var spotify = new Spotify(keys.spotify);
-var fs = require('fs');
+// var Spotify = require('node-spotify-api');
+// var spotify = new Spotify(keys.spotify);
 // var twitter = require('twitter');
 var x = "";
 
@@ -44,42 +43,42 @@ switch (command) {
 };
 
 
-function spotifySearch() {
-  spotify.search({ type: 'track', query: song }, function (err, data) {
-    if (err) {
-      return console.log('Error occurred: ' + err);
-      console.log(data);
-    } else if (!err) {
-      for (var i = 0; i < data.tracks.items.length; i++) {
-        var song = data.tracks.items[i];
-        console.log("Artist" + song.artist[0].name);
-        console.log("Song: " + song.name);
-        console.log("Preview URL: " + song.preview_url);
-        console.log("Album: " + song.album.name);
-      }
-    }
-  });
-}
+// function spotifySearch() {
+//   spotify.search({ type: 'track', query: song }, function (err, data) {
+//     if (err) {
+//       return console.log('Error occurred: ' + err);
+//       console.log(data);
+//     } else if (!err) {
+//       for (var i = 0; i < data.tracks.items.length; i++) {
+//         var song = data.tracks.items[i];
+//         console.log("Artist" + song.artist[0].name);
+//         console.log("Song: " + song.name);
+//         console.log("Preview URL: " + song.preview_url);
+//         console.log("Album: " + song.album.name);
+//       }
+//     }
+//   });
+// }
 
-function omdbSearch() {
-  var omdbURL = "http://www.omdbapi.com/?t=' + movie + '&plot=short&tomatoes=true';"
+function omdbSearch(x) {
+  var omdbURL = "http://www.omdbapi.com/?t=" + x + "&plot=short&tomatoes=true&apikey=trilogy";
 
   request(omdbURL, function (error, response, body) {
 
     if (!error && response.statusCode === 200) {
       var body = JSON.parse(body);
 
-      console.log("Title" + body.Title);
-      console.log("Year" + body.Year);
-      console.log("IMDB Rating" + body.imdbRating);
-      console.log("Rotten Tomatoes Rating" + body.tomatoRating);
-      console.log("Country" + body.Country);
-      console.log("Language" + body.Language);
-      console.log("Plot" + body.Plot);
+      console.log("Title " + body.Title);
+      console.log("Year " + body.Year);
+      console.log("IMDB Rating " + body.imdbRating);
+      console.log("Rotten Tomatoes Rating " + body.tomatoRating);
+      console.log("Country " + body.Country);
+      console.log("Language " + body.Language);
+      console.log("Plot " + body.Plot);
     } else {
       console.log("error")
     }
-    if (movie === "Mr. Nobody") {
+    if (x === "Mr. Nobody") {
 
       console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
       console.log("It's on Netflix!");
