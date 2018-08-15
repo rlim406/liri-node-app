@@ -43,20 +43,23 @@ switch (command) {
 };
 
 
-function spotifySearch() {
-  spotify.search({ type: 'track', query: song }, function (err, data) {
+function spotifySearch(x) {
+  spotify.search({ type: 'track', query: x }, function (err, data) {
+
     if (err) {
       return console.log('Error occurred: ' + err);
-      console.log(data);
     } else if (!err) {
       for (var i = 0; i < data.tracks.items.length; i++) {
-        var song = data.tracks.items[i];
-        console.log("Artist" + song.artist[0].name);
-        console.log("Song: " + song.name);
-        console.log("Preview URL: " + song.preview_url);
-        console.log("Album: " + song.album.name);
+        var songInfo = data.tracks.items[i];
+        console.log("Artist " + songInfo.artists[0].name);
+        console.log("Song: " + songInfo.name);
+        console.log("Preview URL: " + songInfo.preview_url);
+        console.log("Album: " + songInfo.album.name);
       }
+    } else if (x === "The Sign") {
+      defaultSong();
     }
+
   });
 }
 
