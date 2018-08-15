@@ -5,7 +5,8 @@ var keys = require('./keys.js');
 var request = require('request');
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
-var twitter = require('twitter');
+// var twitter = require('twitter');
+// var client = new Twitter(keys.twitter);
 var fs = require("fs");
 var x = "";
 
@@ -96,4 +97,8 @@ function defaultSong() {
 
     spotifySearch(txt[1]);
   });
+}
+
+function twitterSearch() {
+
 }
