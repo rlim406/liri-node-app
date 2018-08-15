@@ -5,8 +5,8 @@ var keys = require('./keys.js');
 var request = require('request');
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
-// var twitter = require('twitter');
-// var client = new Twitter(keys.twitter);
+var twitter = require('twitter');
+var client = new twitter(keys.twitter);
 var fs = require("fs");
 var x = "";
 
@@ -65,6 +65,14 @@ function spotifySearch(x) {
   });
 }
 
+function defaultSong() {
+  fs.readFile('random.txt', "utf8", function (error, data) {
+    var txt = data.split(',');
+
+    spotifySearch(txt[1]);
+  });
+}
+
 function omdbSearch(x) {
   var omdbURL = "http://www.omdbapi.com/?t=" + x + "&plot=short&tomatoes=true&apikey=trilogy";
 
@@ -91,14 +99,17 @@ function omdbSearch(x) {
   });
 }
 
-function defaultSong() {
-  fs.readFile('random.txt', "utf8", function (error, data) {
-    var txt = data.split(',');
-
-    spotifySearch(txt[1]);
-  });
-}
 
 function twitterSearch() {
-
+  var params = { screen_name: 'liririli1', count: 20 };
+  client.get('statuses/user_timeline', params, function (error, tweets, response) {
+    if (!error) {
+      for (var i = 0; i < tweets.length; i++) {
+        var output = tweets[i].created_at;
+        console.log("@liririli1: " + tweets[i].text + " Created At: " + output);
+      }
+    } else {
+      console.log("Error");
+    }
+  });
 }
