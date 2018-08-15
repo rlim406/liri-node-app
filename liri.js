@@ -6,6 +6,7 @@ var request = require('request');
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var twitter = require('twitter');
+var fs = require("fs");
 var x = "";
 
 for (var i = 3; i < input.length; i++) {
@@ -25,7 +26,7 @@ switch (command) {
     if (x) {
       spotifySearch(x);
     } else {
-      spotifySearch("The Sign");
+      defaultSong();
     }
     break;
 
@@ -56,7 +57,7 @@ function spotifySearch(x) {
         console.log("Preview URL: " + songInfo.preview_url);
         console.log("Album: " + songInfo.album.name);
       }
-    } else if (x === "The Sign") {
+    } else if (x === "") {
       defaultSong();
     }
 
@@ -93,6 +94,6 @@ function defaultSong() {
   fs.readFile('random.txt', "utf8", function (error, data) {
     var txt = data.split(',');
 
-    spotifySong(txt[1]);
+    spotifySearch(txt[1]);
   });
 }
