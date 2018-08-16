@@ -27,7 +27,7 @@ switch (command) {
     if (x) {
       spotifySearch(x);
     } else {
-      defaultSong();
+      spotifySearch("The Sign");
     }
     break;
 
@@ -59,7 +59,7 @@ function spotifySearch(x) {
         console.log("Album: " + songInfo.album.name);
       }
     } else if (x === "") {
-      defaultSong();
+      spotifySearch("The Sign");
     }
 
   });
